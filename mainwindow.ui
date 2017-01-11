@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1340</width>
-    <height>795</height>
+    <height>870</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -1104,8 +1104,8 @@
                     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Detection results will be printed here.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Detection results will be printed here.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
@@ -2453,6 +2453,16 @@ p, li { white-space: pre-wrap; }
                      </property>
                     </widget>
                    </item>
+                   <item row="4" column="1">
+                    <widget class="QCheckBox" name="mcconfSpidBreakingEnabled">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Do not break at PID speed control. This enables smooth carving.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="text">
+                      <string>Breaking allowed</string>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </widget>
                 </item>
@@ -2732,7 +2742,7 @@ p, li { white-space: pre-wrap; }
              <enum>QTabWidget::West</enum>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>6</number>
             </property>
             <widget class="QWidget" name="tab_16">
              <attribute name="title">
@@ -3017,6 +3027,27 @@ p, li { white-space: pre-wrap; }
                      </property>
                     </widget>
                    </item>
+                   <item row="2" column="0">
+                    <widget class="QRadioButton" name="appconfPpmWattNorevBrakeButton">
+                     <property name="text">
+                      <string>Watt no reverse with brake</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QRadioButton" name="appconfPpmPIDNoAccelerationButton">
+                     <property name="text">
+                      <string>PID speed control no acceleration</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="3">
+                    <widget class="QRadioButton" name="appconfPpmCruiseControlSecondaryChannel">
+                     <property name="text">
+                      <string>Cruise Control via Secondary Channel</string>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </item>
                  <item>
@@ -3037,80 +3068,49 @@ p, li { white-space: pre-wrap; }
               </item>
               <item>
                <widget class="QGroupBox" name="groupBox_20">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="title">
                  <string>Settings</string>
                 </property>
+                <property name="alignment">
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                </property>
                 <layout class="QGridLayout" name="gridLayout_17">
-                 <item row="4" column="0">
-                  <widget class="QCheckBox" name="appconfPpmMedianFilterBox">
-                   <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use a median filter to reject niose. This will introduce one sample delay.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="text">
-                    <string>Use Median Filter</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="label_51">
-                   <property name="text">
-                    <string>Maximum Pulsewidth (ms)</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QDoubleSpinBox" name="appconfPpmPidMaxErpmBox">
-                   <property name="maximum">
-                    <double>200000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>100.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
+                 <item row="1" column="1">
                   <widget class="QLabel" name="label_49">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="text">
                     <string>Deadband</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="1">
-                  <widget class="QDoubleSpinBox" name="appconfPpmPulseStartBox">
-                   <property name="maximum">
-                    <double>10.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_50">
-                   <property name="text">
-                    <string>Minimum Pulsewidth (ms)</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QDoubleSpinBox" name="appconfPpmPulseWidthBox">
-                   <property name="maximum">
-                    <double>20.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_45">
-                   <property name="text">
-                    <string>PID max ERPM</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
+                 <item row="1" column="2">
                   <widget class="QDoubleSpinBox" name="appconfPpmHystBox">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   </property>
                    <property name="maximum">
                     <double>1.000000000000000</double>
                    </property>
@@ -3119,8 +3119,182 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="0">
+                 <item row="2" column="2">
+                  <widget class="QDoubleSpinBox" name="appconfPpmPulseStartBox">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="maximum">
+                    <double>10.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QLabel" name="label_50">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="text">
+                    <string>Minimum Pulsewidth (ms)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QLabel" name="label_110">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="text">
+                    <string>Center Pulsewidth (ms)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="2">
+                  <widget class="QDoubleSpinBox" name="appconfPpmPulseCenterBox">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="maximum">
+                    <double>10.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="2">
+                  <widget class="QDoubleSpinBox" name="appconfPpmPulseWidthBox">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="maximum">
+                    <double>20.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="1">
+                  <widget class="QLabel" name="label_51">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="text">
+                    <string>Maximum Pulsewidth (ms)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="1">
+                  <widget class="QCheckBox" name="appconfPpmMedianFilterBox">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use a median filter to reject niose. This will introduce one sample delay.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="text">
+                    <string>Use Median Filter</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="label_45">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="text">
+                    <string>PID max ERPM</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="2">
+                  <widget class="QDoubleSpinBox" name="appconfPpmPidMaxErpmBox">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="maximum">
+                    <double>200000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>100.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="1">
                   <widget class="QCheckBox" name="appconfPpmSafeStartBox">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Don't give throttle unless the received output has been 0 for at leas 50 pulses. The counter is reset on boot, every time a new configuration is loaded and when a timeout occurs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
@@ -3135,7 +3309,7 @@ p, li { white-space: pre-wrap; }
               <item>
                <widget class="QGroupBox" name="appconfPpmRpmLimBox">
                 <property name="title">
-                 <string>Soft RPM limit (current mode only)</string>
+                 <string>Soft RPM limit (current and watt mode only)</string>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -3192,44 +3366,143 @@ p, li { white-space: pre-wrap; }
                 <property name="checked">
                  <bool>false</bool>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_37">
-                 <item>
+                <layout class="QGridLayout" name="gridLayout_99">
+                 <item row="0" column="3">
+                  <widget class="QDoubleSpinBox" name="appconfPpmTcOffsetBox">
+                   <property name="maximum">
+                    <double>100000.000000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>1000.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="2">
+                  <widget class="QLabel" name="label_200">
+                   <property name="text">
+                    <string>Offset diff</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
                   <widget class="QCheckBox" name="appconfPpmTcBox">
                    <property name="text">
-                    <string>Enable Traction Control (current mode only)</string>
+                    <string>Enable Traction Control (current and watt mode)</string>
                    </property>
                    <property name="checked">
                     <bool>false</bool>
                    </property>
                   </widget>
                  </item>
-                 <item>
-                  <spacer name="horizontalSpacer_14">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
+                 <item row="1" column="2">
                   <widget class="QLabel" name="label_67">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="text">
                     <string>Traction Control ERPM diff</string>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
                   </widget>
                  </item>
-                 <item>
+                 <item row="1" column="3">
                   <widget class="QDoubleSpinBox" name="appconfPpmTcErpmBox">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="maximum">
                     <double>100000.000000000000000</double>
                    </property>
                    <property name="value">
                     <double>3000.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="appconfPpmWattGroup">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="title">
+                 <string>Watt Settings (Only for Watt mode and PID speed control no acceleration mode)</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_201">
+                 <item row="0" column="4">
+                  <widget class="QDoubleSpinBox" name="appconfPpmMaxWattFactorBox">
+                   <property name="minimum">
+                    <double>1.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.010000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>1.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="3">
+                  <widget class="QLabel" name="label_203">
+                   <property name="text">
+                    <string>Max Watt Ramp Factor (1 is recommended)</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QCheckBox" name="appconfPpmDefineMaxWattBox">
+                   <property name="text">
+                    <string>Define Max Watt (disabled = max batt current * Battery volts)</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="label_202">
+                   <property name="text">
+                    <string>Max Watt</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="2">
+                  <widget class="QDoubleSpinBox" name="appconfPpmMaxWattBox">
+                   <property name="decimals">
+                    <number>0</number>
+                   </property>
+                   <property name="minimum">
+                    <double>1.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>5000.000000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>1000.000000000000000</double>
                    </property>
                   </widget>
                  </item>
@@ -3281,6 +3554,9 @@ p, li { white-space: pre-wrap; }
                <spacer name="verticalSpacer_6">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Expanding</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -3574,10 +3850,10 @@ p, li { white-space: pre-wrap; }
                     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The cruise control button will maintain the current speed while pressed when current control is used and no throttle is given. The reverse button is used to reverse the throttle when one of the corresponding control modes is used.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;When only the ADC app is used, the TX pin is used for the cruise control button and the RX pin is used for the reverse button. When the ADC and UART apps are used at the same time, the servo input will be used as the button. In this case it will be used for the reverse button when a control mode with button is selected, otherwise it will be used for the cruise control button.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The cruise control button will maintain the current speed while pressed when current control is used and no throttle is given. The reverse button is used to reverse the throttle when one of the corresponding control modes is used.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;When only the ADC app is used, the TX pin is used for the cruise control button and the RX pin is used for the reverse button. When the ADC and UART apps are used at the same time, the servo input will be used as the button. In this case it will be used for the reverse button when a control mode with button is selected, otherwise it will be used for the cruise control button.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
@@ -3864,6 +4140,20 @@ p, li { white-space: pre-wrap; }
                      </property>
                     </widget>
                    </item>
+                   <item>
+                    <widget class="QRadioButton" name="appconfChukWattNorevButton">
+                     <property name="text">
+                      <string>Watt</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QRadioButton" name="appconfChukWattButton">
+                     <property name="text">
+                      <string>Watt with reverse</string>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </item>
                  <item>
@@ -4019,14 +4309,20 @@ p, li { white-space: pre-wrap; }
               </item>
               <item>
                <widget class="QGroupBox" name="appconfChukMultiGroup">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="title">
                  <string>Multiple ESCs over CAN</string>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_36">
-                 <item>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_100">
+                 <item row="0" column="0">
                   <widget class="QCheckBox" name="appconfChukTcBox">
                    <property name="text">
                     <string>Enable Traction Control</string>
@@ -4036,33 +4332,176 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
-                 <item>
-                  <spacer name="horizontalSpacer_13">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="label_210">
+                   <property name="text">
+                    <string>Offset diff</string>
                    </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
+                  </widget>
                  </item>
-                 <item>
+                 <item row="0" column="2">
+                  <widget class="QDoubleSpinBox" name="appconfChukTcOffsetBox">
+                   <property name="maximum">
+                    <double>100000.000000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>1000.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
                   <widget class="QLabel" name="label_66">
                    <property name="text">
                     <string>Traction Control ERPM diff</string>
                    </property>
                   </widget>
                  </item>
-                 <item>
+                 <item row="1" column="2">
                   <widget class="QDoubleSpinBox" name="appconfChukTcErpmBox">
                    <property name="maximum">
                     <double>100000.000000000000000</double>
                    </property>
                    <property name="value">
                     <double>3000.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="appconfChukWattGroup">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="title">
+                 <string>Watt Settings (Only for Watt mode and PID speed control no acceleration mode)</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_211">
+                 <item row="0" column="3">
+                  <widget class="QLabel" name="label_213">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="text">
+                    <string>Max Watt Ramp Factor (1 is recommended)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QCheckBox" name="appconfChukDefineMaxWattBox">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="text">
+                    <string>Define Max Watt (disabled = max batt current * Battery volts)</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="label_212">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="text">
+                    <string>Max Watt</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="2">
+                  <widget class="QDoubleSpinBox" name="appconfChukMaxWattBox">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="decimals">
+                    <number>0</number>
+                   </property>
+                   <property name="minimum">
+                    <double>1.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>5000.000000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>1000.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QCheckBox" name="appconfChukDefineMinWattBox">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="text">
+                    <string>Define Min Watt (disabled = like current control)</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="4">
+                  <widget class="QDoubleSpinBox" name="appconfChukMaxWattFactorBox">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="minimum">
+                    <double>1.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.010000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>1.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLabel" name="label_111">
+                   <property name="text">
+                    <string>Min Watt</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QDoubleSpinBox" name="appconfChukMinWattBox">
+                   <property name="decimals">
+                    <number>0</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-5000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>-1.000000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>-500.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="3">
+                  <widget class="QLabel" name="label_112">
+                   <property name="text">
+                    <string>Min Watt Ramp Factor (1 is recommended)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="4">
+                  <widget class="QDoubleSpinBox" name="appconfChukMinWattFactorBox">
+                   <property name="minimum">
+                    <double>1.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.010000000000000</double>
                    </property>
                   </widget>
                  </item>
@@ -4106,16 +4545,16 @@ p, li { white-space: pre-wrap; }
                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;This has been tested with the wireless Nyko Kama nunchuk. The receiver can be connected directly to the I2C port on the ESC. The y-axis on the joystick is used for acceleration/braking. The buttons have the following functions:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;C-Button:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Cruise control. If the C-button is pressed, the ESC will maintail the current speed with a PID control loop. The joystick can still be used to accelerate and brake, but as soon as it is returned to the center position the new speed will be maintained, as long as the C-button remains pressed.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Z-Button:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The Z-button is used to change the direction of the motor if reverse is activated. Without reverse, Z has no effect.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;There is also a safety function. If nothing received from the nunchuk (including the accelerometers) changes for longer than the timeout value in the &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-style:italic;&quot;&gt;General&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; tab, the timeout function will be activated and either release the motor or brake with the current specified next to the timeout value.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This has been tested with the wireless Nyko Kama nunchuk. The receiver can be connected directly to the I2C port on the ESC. The y-axis on the joystick is used for acceleration/braking. The buttons have the following functions:&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;C-Button:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cruise control. If the C-button is pressed, the ESC will maintail the current speed with a PID control loop. The joystick can still be used to accelerate and brake, but as soon as it is returned to the center position the new speed will be maintained, as long as the C-button remains pressed.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Z-Button:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The Z-button is used to change the direction of the motor if reverse is activated. Without reverse, Z has no effect.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;There is also a safety function. If nothing received from the nunchuk (including the accelerometers) changes for longer than the timeout value in the &lt;span style=&quot; font-style:italic;&quot;&gt;General&lt;/span&gt; tab, the timeout function will be activated and either release the motor or brake with the current specified next to the timeout value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
@@ -4485,6 +4924,513 @@ p, li { white-space: pre-wrap; }
                  </size>
                 </property>
                </spacer>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="tab_100">
+             <attribute name="title">
+              <string>Throttle-Curve</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_100">
+              <item>
+               <widget class="QGroupBox" name="groupBox_21">
+                <property name="title">
+                 <string>Throttle Curve</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_16">
+                 <item row="0" column="0">
+                  <widget class="QCustomPlot" name="throttleCurvePlot" native="true">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="appconfAdjustableThrottle">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="title">
+                 <string>Enable Throttle Curve</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_48">
+                 <item row="0" column="1">
+                  <widget class="QGroupBox" name="groupBox_53">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="title">
+                    <string>Enable Acceleration Throttle Curve</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>false</bool>
+                   </property>
+                   <property name="checked">
+                    <bool>false</bool>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_48">
+                    <item row="0" column="0" rowspan="3">
+                     <layout class="QGridLayout" name="gridLayout_52">
+                      <item row="1" column="3">
+                       <widget class="QDoubleSpinBox" name="x3Throttle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>1.500000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>99.500000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>75.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="3">
+                       <widget class="QDoubleSpinBox" name="y3Throttle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>0.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>100.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>75.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QDoubleSpinBox" name="x1Throttle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>98.500000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>25.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="2">
+                       <widget class="QDoubleSpinBox" name="y2Throttle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>0.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>100.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>50.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="2">
+                       <widget class="QDoubleSpinBox" name="x2Throttle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>99.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>50.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="1">
+                       <widget class="QDoubleSpinBox" name="y1Throttle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>0.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>100.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>25.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="label_102">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="text">
+                         <string>Y - Power %</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="label_106">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="text">
+                         <string>X - Throttle %</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
+                       <widget class="QDoubleSpinBox" name="bezierReduceFactorBox">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>0.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.050000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>1.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="label_113">
+                        <property name="text">
+                         <string>Edgesharpness Factor</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QGroupBox" name="groupBox_54">
+                   <property name="title">
+                    <string>Braking Throttle Curve</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>false</bool>
+                   </property>
+                   <property name="checked">
+                    <bool>false</bool>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_56">
+                    <item row="0" column="0" rowspan="3">
+                     <layout class="QGridLayout" name="gridLayout_62">
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="label_302">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="text">
+                         <string>Y - Power %</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="label_313">
+                        <property name="text">
+                         <string>Edgesharpness Factor</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="label_306">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="text">
+                         <string>X - Throttle %</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="3">
+                       <widget class="QDoubleSpinBox" name="x1NegThrottle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>-98.500000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>-0.500000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>-25.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="3">
+                       <widget class="QDoubleSpinBox" name="y1NegThrottle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>-100.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>0.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>-25.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QDoubleSpinBox" name="x3NegThrottle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>-99.500000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>-1.500000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>-75.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="1">
+                       <widget class="QDoubleSpinBox" name="y3NegThrottle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>-100.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>0.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>-75.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="2">
+                       <widget class="QDoubleSpinBox" name="y2NegThrottle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>-100.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>0.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>-50.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="2">
+                       <widget class="QDoubleSpinBox" name="x2NegThrottle">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>-99.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>-1.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.500000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>-50.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
+                       <widget class="QDoubleSpinBox" name="bezierNegReduceFactorBox">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="decimals">
+                         <number>1</number>
+                        </property>
+                        <property name="minimum">
+                         <double>0.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.050000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>1.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -5641,8 +6587,8 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>248</width>
-            <height>82</height>
+            <width>231</width>
+            <height>78</height>
            </rect>
           </property>
           <attribute name="label">
@@ -5690,8 +6636,8 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>248</width>
-            <height>82</height>
+            <width>103</width>
+            <height>78</height>
            </rect>
           </property>
           <attribute name="label">
@@ -6205,6 +7151,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>mcconfCcGainBox</tabstop>
   <tabstop>mcconfSpidKiBox</tabstop>
   <tabstop>mcconfSpidMinRpmBox</tabstop>
+  <tabstop>mcconfSpidBreakingEnabled</tabstop>
   <tabstop>mcconfSpidKdBox</tabstop>
   <tabstop>mcconfSpidKpBox</tabstop>
   <tabstop>mcconfPpidKiBox</tabstop>
@@ -6238,18 +7185,20 @@ p, li { white-space: pre-wrap; }
   <tabstop>appconfPpmCurrentButton</tabstop>
   <tabstop>appconfPpmCurrentNorevButton</tabstop>
   <tabstop>appconfPpmPidButton</tabstop>
-  <tabstop>appconfPpmMedianFilterBox</tabstop>
+  <tabstop>appconfPpmWattNorevBrakeButton</tabstop>
+  <tabstop>appconfPpmPIDNoAccelerationButton</tabstop>
+  <tabstop>appconfPpmCruiseControlSecondaryChannel</tabstop>
   <tabstop>appconfPpmPidMaxErpmBox</tabstop>
   <tabstop>appconfPpmPulseStartBox</tabstop>
   <tabstop>appconfPpmPulseWidthBox</tabstop>
   <tabstop>appconfPpmHystBox</tabstop>
+  <tabstop>appconfPpmMedianFilterBox</tabstop>
   <tabstop>appconfPpmSafeStartBox</tabstop>
   <tabstop>appconfPpmRpmLimBox</tabstop>
   <tabstop>appconfPpmRpmLimStartBox</tabstop>
-  <tabstop>appconfPpmRpmLimEndBox</tabstop>
-  <tabstop>appconfPpmMultiGroup</tabstop>
-  <tabstop>appconfPpmTcBox</tabstop>
-  <tabstop>appconfPpmTcErpmBox</tabstop>
+  <tabstop>appconfPpmWattGroup</tabstop>
+  <tabstop>appconfPpmDefineMaxWattBox</tabstop>
+  <tabstop>appconfPpmMaxWattBox</tabstop>
   <tabstop>appconfUpdatePpmBox</tabstop>
   <tabstop>appconfAdcCurrentButtonButton</tabstop>
   <tabstop>appconfAdcDisabledButton</tabstop>
@@ -6272,6 +7221,8 @@ p, li { white-space: pre-wrap; }
   <tabstop>appconfChukDisabledButton</tabstop>
   <tabstop>appconfChukCurrentNorevButton</tabstop>
   <tabstop>appconfChukCurrentButton</tabstop>
+  <tabstop>appconfChukWattNorevButton</tabstop>
+  <tabstop>appconfChukWattButton</tabstop>
   <tabstop>appconfChukHystBox</tabstop>
   <tabstop>appconfChukRampTimePosBox</tabstop>
   <tabstop>appconfChukRpmLimStartBox</tabstop>

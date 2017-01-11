@@ -214,8 +214,8 @@ void PacketInterface::readPendingDatagrams()
 
         mUdpSocket->readDatagram(datagram.data(), datagram.size(),
                                 &sender, &senderPort);
-
-        processPacket((unsigned char*)datagram.data(), datagram.length());
+                                
+        processData(datagram);
     }
 }
 
@@ -238,20 +238,6 @@ bool PacketInterface::sendPacket(const unsigned char *data, unsigned int len_pac
 
     static unsigned char buffer[mMaxBufferLen];
     unsigned int ind = 0;
-
-    // If the IP is valid, send the packet over UDP
-    if (QString::compare(mHostAddress.toString(), "0.0.0.0") != 0) {
-        if (mSendCan) {
-            buffer[ind++] = COMM_FORWARD_CAN;
-            buffer[ind++] = mCanId;
-        }
-
-        memcpy(buffer + ind, data, len_packet);
-        ind += len_packet;
-
-        mUdpSocket->writeDatagram(QByteArray::fromRawData((const char*)buffer, ind), mHostAddress, mUdpPort);
-        return true;
-    }
 
     int len_tot = len_packet;
 
@@ -286,6 +272,12 @@ bool PacketInterface::sendPacket(const unsigned char *data, unsigned int len_pac
     buffer[ind++] = 3;
 
     QByteArray sendData = QByteArray::fromRawData((char*)buffer, ind);
+
+    if (QString::compare(mHostAddress.toString(), "0.0.0.0") != 0) {
+
+        mUdpSocket->writeDatagram(sendData, mHostAddress, mUdpPort);
+        return true;
+    }
 
     emit dataToSend(sendData);
 
@@ -486,6 +478,10 @@ void PacketInterface::processPacket(const unsigned char *data, int len)
         mcconf.m_encoder_counts = utility::buffer_get_uint32(data, &ind);
         mcconf.m_sensor_port_mode = (sensor_port_mode)data[ind++];
 
+        // new config
+        mcconf.s_pid_breaking_enabled = data[ind++];
+        // new config end
+
         mcconf.meta_description = "Configuration loaded from the motor controller.";
 
         emit mcconfReceived(mcconf);
@@ -553,7 +549,38 @@ void PacketInterface::processPacket(const unsigned char *data, int len)
         memcpy(appconf.app_nrf_conf.address, data + ind, 3);
         ind += 3;
         appconf.app_nrf_conf.send_crc_ack = data[ind++];
+		
+		// new config
+        appconf.app_ppm_conf.pulse_center = utility::buffer_get_double32(data, 1000.0, &ind);
 
+        appconf.app_ppm_conf.tc_offset = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_ppm_conf.max_watt_enabled = data[ind++];
+        appconf.app_ppm_conf.max_watt = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_ppm_conf.max_watt_ramp_factor = utility::buffer_get_double32(data, 1000.0, &ind);
+
+        appconf.app_chuk_conf.tc_offset = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_chuk_conf.max_watt_enabled = data[ind++];
+        appconf.app_chuk_conf.max_watt = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_chuk_conf.max_watt_ramp_factor = utility::buffer_get_double32(data, 1000.0, &ind);
+
+        appconf.app_throttle_conf.adjustable_throttle_enabled = data[ind++];
+        appconf.app_throttle_conf.y1_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.y2_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.y3_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.x1_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.x2_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.x3_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.bezier_reduce_factor = utility::buffer_get_double32(data, 100.0, &ind);
+        appconf.app_throttle_conf.y1_neg_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.y2_neg_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.y3_neg_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.x1_neg_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.x2_neg_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.x3_neg_throttle = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_throttle_conf.bezier_neg_reduce_factor = utility::buffer_get_double32(data, 100.0, &ind);
+
+		// new config end
+		
         emit appconfReceived(appconf);
         break;
 
@@ -986,6 +1013,10 @@ bool PacketInterface::setMcconf(const mc_configuration &mcconf)
     utility::buffer_append_uint32(mSendBuffer, mcconf.m_encoder_counts, &send_index);
     mSendBuffer[send_index++] = mcconf.m_sensor_port_mode;
 
+    // new config
+    mSendBuffer[send_index++] = mcconf.s_pid_breaking_enabled;
+    // new config end
+
     return sendPacket(mSendBuffer, send_index);
 }
 
@@ -1078,6 +1109,36 @@ bool PacketInterface::setAppConf(const app_configuration &appconf)
     memcpy(mSendBuffer + send_index, appconf.app_nrf_conf.address, 3);
     send_index += 3;
     mSendBuffer[send_index++] = appconf.app_nrf_conf.send_crc_ack;
+
+    //new config
+    utility::buffer_append_double32(mSendBuffer, appconf.app_ppm_conf.pulse_center, 1000.0, &send_index);
+
+    utility::buffer_append_double32(mSendBuffer, appconf.app_ppm_conf.tc_offset, 1000.0, &send_index);
+    mSendBuffer[send_index++] = appconf.app_ppm_conf.max_watt_enabled;
+    utility::buffer_append_double32(mSendBuffer, appconf.app_ppm_conf.max_watt, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_ppm_conf.max_watt_ramp_factor, 1000.0, &send_index);
+
+    utility::buffer_append_double32(mSendBuffer, appconf.app_chuk_conf.tc_offset, 1000.0, &send_index);
+    mSendBuffer[send_index++] = appconf.app_chuk_conf.max_watt_enabled;
+    utility::buffer_append_double32(mSendBuffer, appconf.app_chuk_conf.max_watt, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_chuk_conf.max_watt_ramp_factor, 1000.0, &send_index);
+
+    mSendBuffer[send_index++] = appconf.app_throttle_conf.adjustable_throttle_enabled;
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.y1_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.y2_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.y3_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.x1_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.x2_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.x3_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.bezier_reduce_factor, 100.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.y1_neg_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.y2_neg_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.y3_neg_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.x1_neg_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.x2_neg_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.x3_neg_throttle, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_throttle_conf.bezier_neg_reduce_factor, 100.0, &send_index);
+    //new config end
 
     return sendPacket(mSendBuffer, send_index);
 }

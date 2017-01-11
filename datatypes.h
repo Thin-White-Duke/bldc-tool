@@ -206,6 +206,7 @@ typedef struct {
     float s_pid_ki;
     float s_pid_kd;
     float s_pid_min_erpm;
+    bool s_pid_breaking_enabled;
     // Pos PID
     float p_pid_kp;
     float p_pid_ki;
@@ -249,7 +250,10 @@ typedef enum {
     PPM_CTRL_TYPE_DUTY,
     PPM_CTRL_TYPE_DUTY_NOREV,
     PPM_CTRL_TYPE_PID,
-    PPM_CTRL_TYPE_PID_NOREV
+    PPM_CTRL_TYPE_PID_NOREV,
+    PPM_CTRL_TYPE_WATT_NOREV_BRAKE,
+    PPM_CTRL_TYPE_PID_NOACCELERATION,
+    PPM_CTRL_TYPE_CRUISE_CONTROL_SECONDARY_CHANNEL
 } ppm_control_type;
 
 typedef struct {
@@ -265,6 +269,11 @@ typedef struct {
     bool multi_esc;
     bool tc;
     float tc_max_diff;
+    float pulse_center;
+    float tc_offset;
+    bool max_watt_enabled;
+    float max_watt;
+    float max_watt_ramp_factor;
 } ppm_config;
 
 // ADC control types
@@ -303,7 +312,9 @@ typedef struct {
 typedef enum {
     CHUK_CTRL_TYPE_NONE = 0,
     CHUK_CTRL_TYPE_CURRENT,
-    CHUK_CTRL_TYPE_CURRENT_NOREV
+    CHUK_CTRL_TYPE_CURRENT_NOREV,
+    CHUK_CTRL_TYPE_WATT,
+	CHUK_CTRL_TYPE_WATT_NOREV
 } chuk_control_type;
 
 typedef struct {
@@ -317,6 +328,10 @@ typedef struct {
     bool multi_esc;
     bool tc;
     float tc_max_diff;
+    float tc_offset;
+    bool max_watt_enabled;
+    float max_watt;
+    float max_watt_ramp_factor;
 } chuk_config;
 
 // NRF Datatypes
@@ -376,6 +391,24 @@ typedef struct {
 } nrf_config;
 
 typedef struct {
+	bool adjustable_throttle_enabled;
+    float y1_throttle;
+    float y2_throttle;
+    float y3_throttle;
+    float x1_throttle;
+    float x2_throttle;
+    float x3_throttle;
+    float bezier_reduce_factor;
+    float y1_neg_throttle;
+    float y2_neg_throttle;
+    float y3_neg_throttle;
+    float x1_neg_throttle;
+    float x2_neg_throttle;
+    float x3_neg_throttle;
+    float bezier_neg_reduce_factor;
+} throttle_config;
+
+typedef struct {
     // Settings
     quint8 controller_id;
     quint32 timeout_msec;
@@ -400,6 +433,8 @@ typedef struct {
 
     // NRF application settings
     nrf_config app_nrf_conf;
+
+	throttle_config app_throttle_conf;
 } app_configuration;
 
 typedef struct {

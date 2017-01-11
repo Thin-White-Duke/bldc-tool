@@ -73,6 +73,8 @@ private slots:
     void decodedPpmReceived(double ppm_value, double ppm_last_len);
     void decodedAdcReceived(double adc_value, double adc_voltage, double adc_value2, double adc_voltage2);
     void decodedChukReceived(double chuk_value);
+    void updateThrottleCurve(bool clicked);
+    void updateThrottleCurve(double max_watts);
 
     void on_serialConnectButton_clicked();
     void on_udpConnectButton_clicked();

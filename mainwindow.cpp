@@ -56,8 +56,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // Compatible firmwares
     mFwVersionReceived = false;
     mFwRetries = 0;
-    mCompatibleFws.append(qMakePair(2, 17));
-    mCompatibleFws.append(qMakePair(2, 18));
+    mCompatibleFws.append(qMakePair(2, 52));
+    //mCompatibleFws.append(qMakePair(2, 18));
 
     QString supportedFWs;
     for (int i = 0;i < mCompatibleFws.size();i++) {
@@ -134,8 +134,104 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(decodedAdcReceived(double,double,double,double)));
     connect(mPacketInterface, SIGNAL(decodedChukReceived(double)),
             this, SLOT(decodedChukReceived(double)));
+    //Connect our custom signals to show message
+    connect(ui->appconfPpmMaxWattBox,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->y1Throttle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->y2Throttle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->y3Throttle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->x1Throttle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->x2Throttle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->x3Throttle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->y1NegThrottle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->y2NegThrottle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->y3NegThrottle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->x1NegThrottle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->x2NegThrottle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->x3NegThrottle,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->mcconfLimMaxDutyBox,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->appconfPpmPidMaxErpmBox,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->mcconfLimCurrentMaxBox,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->appconfPpmWattNorevBrakeButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfPpmPIDNoAccelerationButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfPpmCurrentButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfPpmCurrentNorevButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfPpmCurrentNorevBrakeButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfAdjustableThrottle,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfPpmPidButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfPpmPidNorevButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfPpmCruiseControlSecondaryChannel,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfPpmDisabledButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfPpmDutyButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfPpmDutyNorevButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfUseNoAppButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfUseUartButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfUseNrfButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfUseAdcButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfUseAdcUartButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfUseCustomButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfChukDisabledButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfChukCurrentNorevButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfChukCurrentButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfChukWattNorevButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfChukWattButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfUsePpmButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfUsePpmUartButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->appconfUseNunchukButton,SIGNAL(clicked(bool)),
+            this,SLOT(updateThrottleCurve(bool)));
+    connect(ui->bezierReduceFactorBox,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->bezierNegReduceFactorBox,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
+    connect(ui->appconfChukMaxWattBox,SIGNAL(valueChanged(double)),
+            this,SLOT(updateThrottleCurve(double)));
 
     mSerialization = new Serialization(this);
+    
+    ui->throttleCurvePlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    	
+
+    updateThrottleCurve(ui->appconfPpmMaxWattBox->value());
 
     ui->currentPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     ui->voltagePlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
@@ -162,6 +258,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qApp->installEventFilter(this);
 }
+
+
 
 MainWindow::~MainWindow()
 {
@@ -371,6 +469,7 @@ mc_configuration MainWindow::getMcconfGui()
     mcconf.s_pid_ki = ui->mcconfSpidKiBox->value();
     mcconf.s_pid_kd = ui->mcconfSpidKdBox->value();
     mcconf.s_pid_min_erpm = ui->mcconfSpidMinRpmBox->value();
+    mcconf.s_pid_breaking_enabled = ui->mcconfSpidBreakingEnabled->isChecked();
 
     mcconf.p_pid_kp = ui->mcconfPpidKpBox->value();
     mcconf.p_pid_ki = ui->mcconfPpidKiBox->value();
@@ -557,6 +656,7 @@ void MainWindow::setMcconfGui(const mc_configuration &mcconf)
     ui->mcconfSpidKiBox->setValue(mcconf.s_pid_ki);
     ui->mcconfSpidKdBox->setValue(mcconf.s_pid_kd);
     ui->mcconfSpidMinRpmBox->setValue(mcconf.s_pid_min_erpm);
+    ui->mcconfSpidBreakingEnabled->setChecked(mcconf.s_pid_breaking_enabled);
 
     ui->mcconfPpidKpBox->setValue(mcconf.p_pid_kp);
     ui->mcconfPpidKiBox->setValue(mcconf.p_pid_ki);
@@ -664,7 +764,10 @@ void MainWindow::timerSlot()
         }
 
         if (!mFwVersionReceived) {
-            mPacketInterface->getFwVersion();
+        	if(mFwRetries%20 == 0){
+        		mPacketInterface->getFwVersion();	
+        	}
+        	
             mFwRetries++;
 
             // Timeout if the firmware cannot be read
@@ -1421,170 +1524,173 @@ void MainWindow::ackReceived(QString ackType)
 
 void MainWindow::mcValuesReceived(MC_VALUES values)
 {
-    const int maxS = 500;
+    if (ui->realtimeActivateBox->isChecked()) {
+        const int maxS = 500;
 
-    ui->rtDataWidget->setValues(values);
+        ui->rtDataWidget->setValues(values);
 
-    appendDoubleAndTrunc(&tempMos1Vec, values.temp_mos1, maxS);
-    appendDoubleAndTrunc(&tempMos2Vec, values.temp_mos2, maxS);
-    appendDoubleAndTrunc(&tempMos3Vec, values.temp_mos3, maxS);
-    appendDoubleAndTrunc(&tempMos4Vec, values.temp_mos4, maxS);
-    appendDoubleAndTrunc(&tempMos5Vec, values.temp_mos5, maxS);
-    appendDoubleAndTrunc(&tempMos6Vec, values.temp_mos6, maxS);
-    appendDoubleAndTrunc(&tempPcbVec, values.temp_pcb, maxS);
-    appendDoubleAndTrunc(&currInVec, values.current_in, maxS);
-    appendDoubleAndTrunc(&currMotorVec, values.current_motor, maxS);
-    appendDoubleAndTrunc(&dutyVec, values.duty_now, maxS);
-    appendDoubleAndTrunc(&rpmVec, values.rpm, maxS);
-    appendDoubleAndTrunc(&voltInVec, values.v_in, maxS);
+        appendDoubleAndTrunc(&tempMos1Vec, values.temp_mos1, maxS);
+        appendDoubleAndTrunc(&tempMos2Vec, values.temp_mos2, maxS);
+        appendDoubleAndTrunc(&tempMos3Vec, values.temp_mos3, maxS);
+        appendDoubleAndTrunc(&tempMos4Vec, values.temp_mos4, maxS);
+        appendDoubleAndTrunc(&tempMos5Vec, values.temp_mos5, maxS);
+        appendDoubleAndTrunc(&tempMos6Vec, values.temp_mos6, maxS);
+        appendDoubleAndTrunc(&tempPcbVec, values.temp_pcb, maxS);
+        appendDoubleAndTrunc(&currInVec, values.current_in, maxS);
+        appendDoubleAndTrunc(&currMotorVec, values.current_motor, maxS);
+        appendDoubleAndTrunc(&dutyVec, values.duty_now, maxS);
+        appendDoubleAndTrunc(&rpmVec, values.rpm, maxS);
+        appendDoubleAndTrunc(&voltInVec, values.v_in, maxS);
 
-    QPen dotPen;
-    dotPen.setStyle(Qt::DotLine);
-    dotPen.setColor(Qt::blue);
-
-    QFont legendFont = font();
-    legendFont.setPointSize(9);
-
-    int dataSize = tempMos1Vec.size();
-    float fsamp = 10.0;
-
-    QVector<double> xAxis(dataSize);
-    for (int i = 0;i < tempMos1Vec.size();i++) {
-        xAxis[i] = (double)i / fsamp;
-    }
-
-    int graphIndex = 0;
-
-    if (!mRealtimeGraphsAdded) {
-        // Temperatures
-        ui->realtimePlotTemperature->addGraph();
-        ui->realtimePlotTemperature->graph(graphIndex)->setPen(QPen(Qt::blue));
-        ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 1");
-        graphIndex++;
-
-        ui->realtimePlotTemperature->addGraph();
+        QPen dotPen;
+        dotPen.setStyle(Qt::DotLine);
         dotPen.setColor(Qt::blue);
-        ui->realtimePlotTemperature->graph(graphIndex)->setPen(dotPen);
-        ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 2");
-        graphIndex++;
 
-        ui->realtimePlotTemperature->addGraph();
-        ui->realtimePlotTemperature->graph(graphIndex)->setPen(QPen(Qt::red));
-        ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 3");
-        graphIndex++;
+        QFont legendFont = font();
+        legendFont.setPointSize(9);
 
-        ui->realtimePlotTemperature->addGraph();
-        dotPen.setColor(Qt::red);
-        ui->realtimePlotTemperature->graph(graphIndex)->setPen(dotPen);
-        ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 4");
-        graphIndex++;
+        int dataSize = tempMos1Vec.size();
+        float fsamp = 10.0;
 
-        ui->realtimePlotTemperature->addGraph();
-        ui->realtimePlotTemperature->graph(graphIndex)->setPen(QPen(Qt::green));
-        ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 5");
-        graphIndex++;
+        QVector<double> xAxis(dataSize);
+        for (int i = 0;i < tempMos1Vec.size();i++) {
+            xAxis[i] = (double)i / fsamp;
+        }
 
-        ui->realtimePlotTemperature->addGraph();
-        dotPen.setColor(Qt::green);
-        ui->realtimePlotTemperature->graph(graphIndex)->setPen(dotPen);
-        ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 6");
-        graphIndex++;
+        int graphIndex = 0;
 
-        ui->realtimePlotTemperature->addGraph();
-        ui->realtimePlotTemperature->graph(graphIndex)->setPen(QPen(Qt::magenta));
-        ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature PCB");
-        graphIndex++;
+        if (!mRealtimeGraphsAdded) {
+            // Temperatures
+            ui->realtimePlotTemperature->addGraph();
+            ui->realtimePlotTemperature->graph(graphIndex)->setPen(QPen(Qt::blue));
+            ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 1");
+            graphIndex++;
 
-        // Current and duty
+            ui->realtimePlotTemperature->addGraph();
+            dotPen.setColor(Qt::blue);
+            ui->realtimePlotTemperature->graph(graphIndex)->setPen(dotPen);
+            ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 2");
+            graphIndex++;
+
+            ui->realtimePlotTemperature->addGraph();
+            ui->realtimePlotTemperature->graph(graphIndex)->setPen(QPen(Qt::red));
+            ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 3");
+            graphIndex++;
+
+            ui->realtimePlotTemperature->addGraph();
+            dotPen.setColor(Qt::red);
+            ui->realtimePlotTemperature->graph(graphIndex)->setPen(dotPen);
+            ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 4");
+            graphIndex++;
+
+            ui->realtimePlotTemperature->addGraph();
+            ui->realtimePlotTemperature->graph(graphIndex)->setPen(QPen(Qt::green));
+            ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 5");
+            graphIndex++;
+
+            ui->realtimePlotTemperature->addGraph();
+            dotPen.setColor(Qt::green);
+            ui->realtimePlotTemperature->graph(graphIndex)->setPen(dotPen);
+            ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature MOSFET 6");
+            graphIndex++;
+
+            ui->realtimePlotTemperature->addGraph();
+            ui->realtimePlotTemperature->graph(graphIndex)->setPen(QPen(Qt::magenta));
+            ui->realtimePlotTemperature->graph(graphIndex)->setName("Temperature PCB");
+            graphIndex++;
+
+            // Current and duty
+            graphIndex = 0;
+            ui->realtimePlotRest->addGraph();
+            ui->realtimePlotRest->graph(graphIndex)->setPen(QPen(Qt::blue));
+            ui->realtimePlotRest->graph(graphIndex)->setName("Current in");
+            graphIndex++;
+
+            ui->realtimePlotRest->addGraph();
+            ui->realtimePlotRest->graph(graphIndex)->setPen(QPen(Qt::red));
+            ui->realtimePlotRest->graph(graphIndex)->setName("Current motor");
+            graphIndex++;
+
+            ui->realtimePlotRest->addGraph(ui->realtimePlotRest->xAxis, ui->realtimePlotRest->yAxis2);
+            ui->realtimePlotRest->graph(graphIndex)->setPen(QPen(Qt::green));
+            ui->realtimePlotRest->graph(graphIndex)->setName("Duty cycle");
+            graphIndex++;
+
+            // RPM
+            graphIndex = 0;
+            ui->realtimePlotRpm->addGraph();
+            ui->realtimePlotRpm->graph(graphIndex)->setPen(QPen(Qt::blue));
+            ui->realtimePlotRpm->graph(graphIndex)->setName("ERPM");
+            graphIndex++;
+
+            ui->realtimePlotTemperature->legend->setVisible(true);
+            ui->realtimePlotTemperature->legend->setFont(legendFont);
+            ui->realtimePlotTemperature->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
+            ui->realtimePlotTemperature->legend->setBrush(QBrush(QColor(255,255,255,230)));
+            ui->realtimePlotTemperature->xAxis->setLabel("Seconds (s)");
+            ui->realtimePlotTemperature->yAxis->setLabel("Deg C");
+
+            ui->realtimePlotRest->legend->setVisible(true);
+            ui->realtimePlotRest->legend->setFont(legendFont);
+            ui->realtimePlotRest->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
+            ui->realtimePlotRest->legend->setBrush(QBrush(QColor(255,255,255,230)));
+            ui->realtimePlotRest->xAxis->setLabel("Seconds (s)");
+            ui->realtimePlotRest->yAxis->setLabel("Ampere (A)");
+            ui->realtimePlotRest->yAxis2->setLabel("Duty Cycle");
+
+            ui->realtimePlotRpm->legend->setVisible(true);
+            ui->realtimePlotRpm->legend->setFont(legendFont);
+            ui->realtimePlotRpm->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
+            ui->realtimePlotRpm->legend->setBrush(QBrush(QColor(255,255,255,230)));
+            ui->realtimePlotRpm->xAxis->setLabel("Seconds (s)");
+            ui->realtimePlotRpm->yAxis->setLabel("ERPM");
+
+            ui->realtimePlotTemperature->yAxis->setRange(0, 120);
+            ui->realtimePlotRest->yAxis->setRange(-20, 130);
+            ui->realtimePlotRest->yAxis2->setRange(-0.2, 1.3);
+            ui->realtimePlotRest->yAxis2->setVisible(true);
+            ui->realtimePlotRpm->yAxis->setRange(0, 120);
+
+            mRealtimeGraphsAdded = true;
+
+        }
+
+        // Temperature plot
         graphIndex = 0;
-        ui->realtimePlotRest->addGraph();
-        ui->realtimePlotRest->graph(graphIndex)->setPen(QPen(Qt::blue));
-        ui->realtimePlotRest->graph(graphIndex)->setName("Current in");
-        graphIndex++;
+        ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos1Vec);
+        ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos2Vec);
+        ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos3Vec);
+        ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos4Vec);
+        ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos5Vec);
+        ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos6Vec);
+        ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempPcbVec);
 
-        ui->realtimePlotRest->addGraph();
-        ui->realtimePlotRest->graph(graphIndex)->setPen(QPen(Qt::red));
-        ui->realtimePlotRest->graph(graphIndex)->setName("Current motor");
-        graphIndex++;
-
-        ui->realtimePlotRest->addGraph(ui->realtimePlotRest->xAxis, ui->realtimePlotRest->yAxis2);
-        ui->realtimePlotRest->graph(graphIndex)->setPen(QPen(Qt::green));
-        ui->realtimePlotRest->graph(graphIndex)->setName("Duty cycle");
-        graphIndex++;
-
-        // RPM
+        // Current and duty-plot
         graphIndex = 0;
-        ui->realtimePlotRpm->addGraph();
-        ui->realtimePlotRpm->graph(graphIndex)->setPen(QPen(Qt::blue));
-        ui->realtimePlotRpm->graph(graphIndex)->setName("ERPM");
-        graphIndex++;
+        ui->realtimePlotRest->graph(graphIndex++)->setData(xAxis, currInVec);
+        ui->realtimePlotRest->graph(graphIndex++)->setData(xAxis, currMotorVec);
+        ui->realtimePlotRest->graph(graphIndex++)->setData(xAxis, dutyVec);
 
-        ui->realtimePlotTemperature->legend->setVisible(true);
-        ui->realtimePlotTemperature->legend->setFont(legendFont);
-        ui->realtimePlotTemperature->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
-        ui->realtimePlotTemperature->legend->setBrush(QBrush(QColor(255,255,255,230)));
-        ui->realtimePlotTemperature->xAxis->setLabel("Seconds (s)");
-        ui->realtimePlotTemperature->yAxis->setLabel("Deg C");
+        // RPM plot
+        graphIndex = 0;
+        ui->realtimePlotRpm->graph(graphIndex++)->setData(xAxis, rpmVec);
 
-        ui->realtimePlotRest->legend->setVisible(true);
-        ui->realtimePlotRest->legend->setFont(legendFont);
-        ui->realtimePlotRest->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
-        ui->realtimePlotRest->legend->setBrush(QBrush(QColor(255,255,255,230)));
-        ui->realtimePlotRest->xAxis->setLabel("Seconds (s)");
-        ui->realtimePlotRest->yAxis->setLabel("Ampere (A)");
-        ui->realtimePlotRest->yAxis2->setLabel("Duty Cycle");
+        if (ui->realtimeAutoScaleBox->isChecked()) {
+            ui->realtimePlotTemperature->rescaleAxes();
+            ui->realtimePlotRest->rescaleAxes();
+            ui->realtimePlotRpm->rescaleAxes();
+        }
 
-        ui->realtimePlotRpm->legend->setVisible(true);
-        ui->realtimePlotRpm->legend->setFont(legendFont);
-        ui->realtimePlotRpm->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignRight|Qt::AlignBottom);
-        ui->realtimePlotRpm->legend->setBrush(QBrush(QColor(255,255,255,230)));
-        ui->realtimePlotRpm->xAxis->setLabel("Seconds (s)");
-        ui->realtimePlotRpm->yAxis->setLabel("ERPM");
+        if (dataSize < maxS) {
+            ui->realtimePlotTemperature->xAxis->setRange(0, dataSize / fsamp);
+            ui->realtimePlotRest->xAxis->setRange(0, dataSize / fsamp);
+            ui->realtimePlotRpm->xAxis->setRange(0, dataSize / fsamp);
+        }
 
-        ui->realtimePlotTemperature->yAxis->setRange(0, 120);
-        ui->realtimePlotRest->yAxis->setRange(-20, 130);
-        ui->realtimePlotRest->yAxis2->setRange(-0.2, 1.3);
-        ui->realtimePlotRest->yAxis2->setVisible(true);
-        ui->realtimePlotRpm->yAxis->setRange(0, 120);
-
-        mRealtimeGraphsAdded = true;
+        ui->realtimePlotTemperature->replot();
+        ui->realtimePlotRest->replot();
+        ui->realtimePlotRpm->replot();
     }
-
-    // Temperature plot
-    graphIndex = 0;
-    ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos1Vec);
-    ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos2Vec);
-    ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos3Vec);
-    ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos4Vec);
-    ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos5Vec);
-    ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempMos6Vec);
-    ui->realtimePlotTemperature->graph(graphIndex++)->setData(xAxis, tempPcbVec);
-
-    // Current and duty-plot
-    graphIndex = 0;
-    ui->realtimePlotRest->graph(graphIndex++)->setData(xAxis, currInVec);
-    ui->realtimePlotRest->graph(graphIndex++)->setData(xAxis, currMotorVec);
-    ui->realtimePlotRest->graph(graphIndex++)->setData(xAxis, dutyVec);
-
-    // RPM plot
-    graphIndex = 0;
-    ui->realtimePlotRpm->graph(graphIndex++)->setData(xAxis, rpmVec);
-
-    if (ui->realtimeAutoScaleBox->isChecked()) {
-        ui->realtimePlotTemperature->rescaleAxes();
-        ui->realtimePlotRest->rescaleAxes();
-        ui->realtimePlotRpm->rescaleAxes();
-    }
-
-    if (dataSize < maxS) {
-        ui->realtimePlotTemperature->xAxis->setRange(0, dataSize / fsamp);
-        ui->realtimePlotRest->xAxis->setRange(0, dataSize / fsamp);
-        ui->realtimePlotRpm->xAxis->setRange(0, dataSize / fsamp);
-    }
-
-    ui->realtimePlotTemperature->replot();
-    ui->realtimePlotRest->replot();
-    ui->realtimePlotRpm->replot();
 }
 
 void MainWindow::printReceived(QString str)
@@ -1852,7 +1958,15 @@ void MainWindow::appconfReceived(app_configuration appconf)
     case PPM_CTRL_TYPE_PID_NOREV:
         ui->appconfPpmPidNorevButton->setChecked(true);
         break;
-
+    case PPM_CTRL_TYPE_WATT_NOREV_BRAKE:
+        ui->appconfPpmWattNorevBrakeButton->setChecked(true);
+        break;
+	case PPM_CTRL_TYPE_PID_NOACCELERATION:
+		ui->appconfPpmPIDNoAccelerationButton->setChecked(true);
+		break;
+	case PPM_CTRL_TYPE_CRUISE_CONTROL_SECONDARY_CHANNEL:
+		ui->appconfPpmCruiseControlSecondaryChannel->setChecked(true);
+        break;
     default:
         break;
     }
@@ -1860,6 +1974,7 @@ void MainWindow::appconfReceived(app_configuration appconf)
     ui->appconfPpmPidMaxErpmBox->setValue(appconf.app_ppm_conf.pid_max_erpm);
     ui->appconfPpmHystBox->setValue(appconf.app_ppm_conf.hyst);
     ui->appconfPpmPulseStartBox->setValue(appconf.app_ppm_conf.pulse_start);
+    ui->appconfPpmPulseCenterBox->setValue(appconf.app_ppm_conf.pulse_center);
     ui->appconfPpmPulseWidthBox->setValue(appconf.app_ppm_conf.pulse_end);
     ui->appconfPpmMedianFilterBox->setChecked(appconf.app_ppm_conf.median_filter);
     ui->appconfPpmSafeStartBox->setChecked(appconf.app_ppm_conf.safe_start);
@@ -1875,6 +1990,27 @@ void MainWindow::appconfReceived(app_configuration appconf)
     ui->appconfPpmMultiGroup->setChecked(appconf.app_ppm_conf.multi_esc);
     ui->appconfPpmTcBox->setChecked(appconf.app_ppm_conf.tc);
     ui->appconfPpmTcErpmBox->setValue(appconf.app_ppm_conf.tc_max_diff);
+    ui->appconfPpmTcOffsetBox->setValue(appconf.app_ppm_conf.tc_offset);
+    
+    ui->appconfPpmDefineMaxWattBox->setChecked(appconf.app_ppm_conf.max_watt_enabled);
+    ui->appconfPpmMaxWattBox->setValue(appconf.app_ppm_conf.max_watt);
+    ui->appconfPpmMaxWattFactorBox->setValue(appconf.app_ppm_conf.max_watt_ramp_factor);
+
+    ui->appconfAdjustableThrottle->setChecked(appconf.app_throttle_conf.adjustable_throttle_enabled);
+    ui->y1Throttle->setValue(appconf.app_throttle_conf.y1_throttle * 100.0);
+    ui->y2Throttle->setValue(appconf.app_throttle_conf.y2_throttle * 100.0);
+    ui->y3Throttle->setValue(appconf.app_throttle_conf.y3_throttle * 100.0);
+    ui->x1Throttle->setValue(appconf.app_throttle_conf.x1_throttle * 100.0);
+    ui->x2Throttle->setValue(appconf.app_throttle_conf.x2_throttle * 100.0);
+    ui->x3Throttle->setValue(appconf.app_throttle_conf.x3_throttle * 100.0);
+    ui->bezierReduceFactorBox->setValue(appconf.app_throttle_conf.bezier_reduce_factor);
+    ui->y1NegThrottle->setValue(-appconf.app_throttle_conf.y1_neg_throttle * 100.0);
+    ui->y2NegThrottle->setValue(-appconf.app_throttle_conf.y2_neg_throttle * 100.0);
+    ui->y3NegThrottle->setValue(-appconf.app_throttle_conf.y3_neg_throttle * 100.0);
+    ui->x1NegThrottle->setValue(-appconf.app_throttle_conf.x1_neg_throttle * 100.0);
+    ui->x2NegThrottle->setValue(-appconf.app_throttle_conf.x2_neg_throttle * 100.0);
+    ui->x3NegThrottle->setValue(-appconf.app_throttle_conf.x3_neg_throttle * 100.0);
+    ui->bezierNegReduceFactorBox->setValue(appconf.app_throttle_conf.bezier_neg_reduce_factor);
 
     // ADC
     switch (appconf.app_adc_conf.ctrl_type) {
@@ -1958,6 +2094,14 @@ void MainWindow::appconfReceived(app_configuration appconf)
     case CHUK_CTRL_TYPE_CURRENT_NOREV:
         ui->appconfChukCurrentNorevButton->setChecked(true);
         break;
+        
+    case CHUK_CTRL_TYPE_WATT:
+        ui->appconfChukWattButton->setChecked(true);
+        break;
+        
+    case CHUK_CTRL_TYPE_WATT_NOREV:
+        ui->appconfChukWattNorevButton->setChecked(true);
+        break;
 
     default:
         break;
@@ -1972,6 +2116,11 @@ void MainWindow::appconfReceived(app_configuration appconf)
     ui->appconfChukMultiGroup->setChecked(appconf.app_chuk_conf.multi_esc);
     ui->appconfChukTcBox->setChecked(appconf.app_chuk_conf.tc);
     ui->appconfChukTcErpmBox->setValue(appconf.app_chuk_conf.tc_max_diff);
+    ui->appconfChukTcOffsetBox->setValue(appconf.app_chuk_conf.tc_offset);
+    
+    ui->appconfChukDefineMaxWattBox->setChecked(appconf.app_chuk_conf.max_watt_enabled);
+    ui->appconfChukMaxWattBox->setValue(appconf.app_chuk_conf.max_watt);
+    ui->appconfChukMaxWattFactorBox->setValue(appconf.app_chuk_conf.max_watt_ramp_factor);
 
     // NRF
     switch (appconf.app_nrf_conf.speed) {
@@ -2057,6 +2206,280 @@ void MainWindow::decodedChukReceived(double chuk_value)
     ui->appconfDecodedChukBar->setValue((chuk_value + 1.0) * 500.0);
 }
 
+void MainWindow::updateThrottleCurve(bool clicked){
+    (void)clicked;
+    updateThrottleCurve((double)0);
+}
+
+double neville (double *x, double *y, double t, double factor)
+{
+    float directSteps;
+    if (t < x[1]){
+        directSteps = (y[1] / x[1] * t);
+    }else if (t > x[3]) {
+        directSteps = ((y[4] - y[3]) / (x[4] - x[3]) * (t-x[3]) + y[3]);
+    }else if (t > x[2]) {
+        directSteps = ((y[3] - y[2]) / (x[3] - x[2]) * (t-x[2]) + y[2]);
+    }else if (t > x[1]) {
+        directSteps = ((y[2] - y[1]) / (x[2] - x[1]) * (t-x[1]) + y[1]);
+    }else { // (throttle == x[1])
+        directSteps = y[1];
+    };
+
+    double *f = new double [5];
+
+    for (int i = 0; i < 5; i++) f[i] = y[i];
+
+    for (int j = 1; j < 5; j++ )
+        for (int i = 4; i >= j; i--)
+            f[i] = ( (t-x[i-j])*f[i] - (t-x[i])*f[i-1] ) / ( x[i] - x[i-j] );
+
+
+    double spline = (f[4] - ((f[4] - directSteps) * factor));
+
+    if(spline > 1.0) {
+        spline = 1.0;
+    } else if (spline < 0.0) {
+        spline = 0.0;
+    }
+
+    return spline;
+}
+
+void MainWindow::updateThrottleCurve(double max_watts)
+{
+    (void)max_watts;
+    QFont legendFont = font();
+    legendFont.setPointSize(9);
+
+    QVector<double> xAxisThrottleCurve(201);
+    QVector<double> linear(201);
+    QVector<double> adjustedThrottleCurveBezier(201);
+
+    double maxYValue = 100;
+    double minYValue = -100;
+    /*
+    QString unit;
+    if (ui->appconfUsePpmButton->isChecked() || ui->appconfUsePpmUartButton->isChecked()) {
+        if (ui->appconfPpmWattNorevBrakeButton->isChecked()) {
+            maxYValue = ui->appconfPpmMaxWattBox->value();
+            //minYValue = ui->appconfPpmMinWattBox->value();
+            unit = QString("W");
+        } else if (ui->appconfPpmPidNorevButton->isChecked() || ui->appconfPpmPidButton->isChecked()) {
+            maxYValue = ui->appconfPpmPidMaxErpmBox->value();
+            //minYValue = ui->appconfPpmPidMaxErpmBox->value();
+            unit = QString("");
+        } else if (ui->appconfPpmCurrentButton->isChecked() || ui->appconfPpmCurrentNorevButton->isChecked() || ui->appconfPpmCurrentNorevBrakeButton->isChecked()) {
+            maxYValue = ui->mcconfLimCurrentMaxBox->value();
+            //minYValue = ui->mcconfLimCurrentMinBox->value();
+            unit = QString("A");
+        } else if (ui->appconfPpmDutyButton->isChecked() || ui->appconfPpmDutyNorevButton->isChecked()) {
+            maxYValue = ui->mcconfLimMaxDutyBox->value() * 100;
+            //minYValue = ui->mcconfLimMaxDutyBox->value() * 100;
+            unit = QString("%");
+        } else {
+            maxYValue = 0.0;
+        }
+    } else if (ui->appconfUseNunchukButton->isChecked()) {
+        if (ui->appconfChukWattNorevButton->isChecked() || ui->appconfChukWattButton->isChecked()) {
+            maxYValue = ui->appconfChukMaxWattBox->value();
+            //minYValue = ui->appconfChukMinWattBox->value();
+            unit = QString("W");
+        } else if (ui->appconfChukCurrentNorevButton->isChecked() || ui->appconfChukCurrentButton->isChecked()){
+            maxYValue = ui->mcconfLimCurrentMaxBox->value();
+            //minYValue = ui->mcconfLimCurrentMinBox->value();
+            unit = QString("A");
+        } else {
+            maxYValue = 0.0;
+        }
+    } else {
+        maxYValue = 0.0;
+    }
+    */
+
+
+    double *x, *y, *nx, *ny;
+    x = new double [5];
+    y = new double [5];
+    nx = new double [5];
+    ny = new double [5];
+    if (ui->x1Throttle->value() == ui->x2Throttle->value()){
+        ui->x1Throttle->setValue(ui->x2Throttle->value() - 0.5);
+    }
+    if (ui->x2Throttle->value() == ui->x3Throttle->value()){
+        ui->x2Throttle->setValue(ui->x3Throttle->value() - 0.5);
+    }
+
+    if (ui->x1NegThrottle->value() == ui->x2NegThrottle->value()){
+        ui->x1NegThrottle->setValue(ui->x2NegThrottle->value() + 0.5);
+    }
+    if (ui->x2NegThrottle->value() == ui->x3NegThrottle->value()){
+        ui->x2NegThrottle->setValue(ui->x3NegThrottle->value() + 0.5);
+    }
+
+    x[0] = 0.0;
+    x[1] = ui->x1Throttle->value() / 100.0;
+    x[2] = ui->x2Throttle->value() / 100.0;
+    x[3] = ui->x3Throttle->value() / 100.0;
+    x[4] = 1.0;
+    y[0] = 0.0;
+    y[1] = ui->y1Throttle->value() / 100.0;
+    y[2] = ui->y2Throttle->value() / 100.0;
+    y[3] = ui->y3Throttle->value() / 100.0;
+    y[4] = 1.0;
+
+    nx[0] = 0.0;
+    nx[1] = -ui->x1NegThrottle->value() / 100.0;
+    nx[2] = -ui->x2NegThrottle->value() / 100.0;
+    nx[3] = -ui->x3NegThrottle->value() / 100.0;
+    nx[4] = 1.0;
+    ny[0] = 0.0;
+    ny[1] = -ui->y1NegThrottle->value() / 100.0;
+    ny[2] = -ui->y2NegThrottle->value() / 100.0;
+    ny[3] = -ui->y3NegThrottle->value() / 100.0;
+    ny[4] = 1.0;
+
+    for (int i=-100; i<=100; i++) {
+        xAxisThrottleCurve[i + 100] = i;
+        double throttle = i / (double)100.0;
+        linear[i + 100] = (i / (double)100.0) * maxYValue;
+
+        if(throttle >= 0){
+            adjustedThrottleCurveBezier[i + 100] = neville(x, y, throttle, ui->bezierReduceFactorBox->value()) * maxYValue;
+        }else{
+            adjustedThrottleCurveBezier[i + 100] = neville(nx, ny, -throttle, ui->bezierNegReduceFactorBox->value()) * minYValue;
+        }
+
+        //adjustedThrottleCurveBezierBraking[i] = neville(nx, ny, throttle, ui->bezierMinReduceFactorBox->value()) * minYValue;
+    }
+
+    ui->throttleCurvePlot->clearGraphs();
+
+    ui->throttleCurvePlot->legend->setVisible(true);
+    ui->throttleCurvePlot->legend->setFont(legendFont);
+    ui->throttleCurvePlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignLeft|Qt::AlignTop);
+
+    int graphIndex = 0;
+
+    ui->throttleCurvePlot->addGraph();
+
+    ui->throttleCurvePlot->graph(graphIndex)->setData(xAxisThrottleCurve, linear);
+    ui->throttleCurvePlot->graph(graphIndex)->setName("Linear");
+    if(ui->appconfAdjustableThrottle->isChecked()){
+        ui->throttleCurvePlot->graph(graphIndex)->setPen(QPen(QColor(255, 0, 0, 127)));
+
+        graphIndex++;
+        ui->throttleCurvePlot->addGraph();
+
+        QPen pen2 = QPen(Qt::blue);
+        pen2.setWidth(2);
+        ui->throttleCurvePlot->graph(graphIndex)->setPen(pen2);
+        ui->throttleCurvePlot->graph(graphIndex)->setData(xAxisThrottleCurve, adjustedThrottleCurveBezier);
+        /*
+        QString values = QString("")
+                .append("(90%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[90])).append(unit).append("\n")
+                .append("(80%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[80])).append(unit).append("\n")
+                .append("(70%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[70])).append(unit).append("\n")
+                .append("(60%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[60])).append(unit).append("\n")
+                .append("(50%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[50])).append(unit).append("\n")
+                .append("(40%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[40])).append(unit).append("\n")
+                .append("(30%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[30])).append(unit).append("\n")
+                .append("(20%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[20])).append(unit).append("\n")
+                .append("(10%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[10])).append(unit);
+        ui->throttleCurvePlot->graph(graphIndex)->setName(values);
+        */
+        ui->throttleCurvePlot->graph(graphIndex)->setName("Custom");
+
+    }else{
+        QPen pen = QPen(Qt::red);
+        pen.setWidth(2);
+        ui->throttleCurvePlot->graph(graphIndex)->setPen(pen);
+    }
+
+    ui->throttleCurvePlot->xAxis->setLabel("Throttle %");
+
+    // set range fpr x Axis
+    ui->throttleCurvePlot->xAxis->setRange(0.0, 100.0);
+
+    ui->throttleCurvePlot->xAxis->setRange(-100.0, 100.0);
+    ui->throttleCurvePlot->yAxis->setLabel("Power %");
+    /*
+    if (ui->appconfUsePpmButton->isChecked() || ui->appconfUsePpmUartButton->isChecked()) {
+        if (ui->appconfPpmWattNorevBrakeButton->isChecked() || ui->appconfPpmPIDNoAccelerationButton->isChecked()) {
+            ui->throttleCurvePlot->yAxis->setLabel("Watts");
+            ui->throttleCurvePlot->xAxis->setRange(0.0, ui->appconfPpmMaxWattBox->value());
+        } else if (ui->appconfPpmPidNorevButton->isChecked() || ui->appconfPpmPidButton->isChecked()){
+            ui->throttleCurvePlot->yAxis->setLabel("ERPM");
+            ui->throttleCurvePlot->xAxis->setRange(0.0, ui->appconfPpmPidMaxErpmBox->value());
+        } else if (ui->appconfPpmCurrentButton->isChecked() || ui->appconfPpmCurrentNorevButton->isChecked() || ui->appconfPpmCurrentNorevBrakeButton->isChecked()) {
+            ui->throttleCurvePlot->yAxis->setLabel("Motor Current");
+            ui->throttleCurvePlot->xAxis->setRange(0.0, ui->mcconfLimCurrentMaxBox->value());
+        } else if (ui->appconfPpmDutyButton->isChecked() || ui->appconfPpmDutyNorevButton->isChecked()) {
+            ui->throttleCurvePlot->yAxis->setLabel("Duty Cycle");
+            ui->throttleCurvePlot->xAxis->setRange(0.0, ui->mcconfLimMaxDutyBox->value());
+        } else {
+            ui->throttleCurvePlot->yAxis->setLabel("None");
+            ui->throttleCurvePlot->xAxis->setRange(0.0, 10.0);
+        }
+    } else if (ui->appconfUseNunchukButton->isChecked()) {
+        if (ui->appconfChukWattNorevButton->isChecked() || ui->appconfChukWattButton->isChecked()) {
+            ui->throttleCurvePlot->yAxis->setLabel("Watts");
+            ui->throttleCurvePlot->xAxis->setRange(0.0, ui->appconfChukMaxWattBox->value());
+        } else if (ui->appconfChukCurrentNorevButton->isChecked() || ui->appconfChukCurrentButton->isChecked()){
+            ui->throttleCurvePlot->yAxis->setLabel("Motor Current");
+            ui->throttleCurvePlot->xAxis->setRange(0.0, ui->mcconfLimCurrentMaxBox->value());
+        } else {
+            ui->throttleCurvePlot->yAxis->setLabel("None");
+            ui->throttleCurvePlot->xAxis->setRange(0.0, 10.0);
+        }
+    } else {
+        ui->throttleCurvePlot->yAxis->setLabel("None");
+        ui->throttleCurvePlot->xAxis->setRange(0.0, 10.0);
+    }
+    */
+
+    /*
+    graphIndex++;
+    ui->throttleCurvePlot->addGraph(ui->throttleCurvePlot->xAxis, ui->throttleCurvePlot->yAxis2);
+    ui->throttleCurvePlot->yAxis2->setLabel("Watts Braking");
+    ui->throttleCurvePlot->yAxis2->setRange(0, -ui->appconfPpmMinWattBox->value());
+    ui->throttleCurvePlot->yAxis2->setVisible(true);
+    ui->throttleCurvePlot->graph(graphIndex)->setData(xAxisThrottleCurve, linear);
+    ui->throttleCurvePlot->graph(graphIndex)->setName("Braking curved");
+    ui->throttleCurvePlot->graph(graphIndex)->setPen(QPen(QColor(255, 0, 0, 127)));
+
+    if(ui->appconfAdjustableThrottleBrake->isChecked()){
+        ui->throttleCurvePlot->graph(graphIndex)->setPen(QPen(QColor(255, 0, 0, 127)));
+
+        graphIndex++;
+        ui->throttleCurvePlot->addGraph();
+
+        QPen pen2 = QPen(Qt::blue);
+        pen2.setWidth(2);
+        ui->throttleCurvePlot->graph(graphIndex)->setPen(pen2);
+        ui->throttleCurvePlot->graph(graphIndex)->setData(xAxisThrottleCurve, adjustedThrottleCurveBezier);
+        QString values = QString("")
+                .append("(90%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[90])).append(unit).append("\n")
+                .append("(80%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[80])).append(unit).append("\n")
+                .append("(70%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[70])).append(unit).append("\n")
+                .append("(60%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[60])).append(unit).append("\n")
+                .append("(50%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[50])).append(unit).append("\n")
+                .append("(40%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[40])).append(unit).append("\n")
+                .append("(30%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[30])).append(unit).append("\n")
+                .append("(20%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[20])).append(unit).append("\n")
+                .append("(10%) ").append(QString().sprintf(unit=="A" || unit=="%"?"%.1f ":"%.0f ", adjustedThrottleCurveBezier[10])).append(unit);
+        ui->throttleCurvePlot->graph(graphIndex)->setName(values);
+
+    }else{
+        QPen pen = QPen(Qt::red);
+        pen.setWidth(2);
+        ui->throttleCurvePlot->graph(graphIndex)->setPen(pen);
+    }
+    */
+
+    ui->throttleCurvePlot->rescaleAxes();
+    ui->throttleCurvePlot->replot();
+}
 
 void MainWindow::on_serialConnectButton_clicked()
 {
@@ -2205,7 +2628,7 @@ void MainWindow::refreshSerialDevices()
         QString name = port.portName();
         int index = ui->serialCombobox->count();
         // put STMicroelectronics device first in list and add prefix
-        if(port.manufacturer() == "STMicroelectronics") {
+        if(port.manufacturer() == "STMicroelectronics" || port.manufacturer() == "STMicroelectronics.") {
             name.insert(0, "VESC - ");
             index = 0;
         }
@@ -2459,11 +2882,18 @@ void MainWindow::on_appconfWriteButton_clicked()
         appconf.app_ppm_conf.ctrl_type = PPM_CTRL_TYPE_PID;
     } else if (ui->appconfPpmPidNorevButton->isChecked()) {
         appconf.app_ppm_conf.ctrl_type = PPM_CTRL_TYPE_PID_NOREV;
+    } else if (ui->appconfPpmWattNorevBrakeButton->isChecked()) {
+        appconf.app_ppm_conf.ctrl_type = PPM_CTRL_TYPE_WATT_NOREV_BRAKE;
+    } else if (ui->appconfPpmPIDNoAccelerationButton->isChecked()) {
+        appconf.app_ppm_conf.ctrl_type = PPM_CTRL_TYPE_PID_NOACCELERATION;
+    } else if (ui->appconfPpmCruiseControlSecondaryChannel->isChecked()) {
+        appconf.app_ppm_conf.ctrl_type = PPM_CTRL_TYPE_CRUISE_CONTROL_SECONDARY_CHANNEL;
     }
 
     appconf.app_ppm_conf.pid_max_erpm = ui->appconfPpmPidMaxErpmBox->value();
     appconf.app_ppm_conf.hyst = ui->appconfPpmHystBox->value();
     appconf.app_ppm_conf.pulse_start = ui->appconfPpmPulseStartBox->value();
+    appconf.app_ppm_conf.pulse_center = ui->appconfPpmPulseCenterBox->value();
     appconf.app_ppm_conf.pulse_end = ui->appconfPpmPulseWidthBox->value();
     appconf.app_ppm_conf.median_filter = ui->appconfPpmMedianFilterBox->isChecked();
     appconf.app_ppm_conf.safe_start = ui->appconfPpmSafeStartBox->isChecked();
@@ -2479,6 +2909,11 @@ void MainWindow::on_appconfWriteButton_clicked()
     appconf.app_ppm_conf.multi_esc = ui->appconfPpmMultiGroup->isChecked();
     appconf.app_ppm_conf.tc = ui->appconfPpmTcBox->isChecked();
     appconf.app_ppm_conf.tc_max_diff = ui->appconfPpmTcErpmBox->value();
+    appconf.app_ppm_conf.tc_offset = ui->appconfPpmTcOffsetBox->value();
+    
+    appconf.app_ppm_conf.max_watt_enabled = ui->appconfPpmDefineMaxWattBox->isChecked();
+    appconf.app_ppm_conf.max_watt = ui->appconfPpmMaxWattBox->value();
+    appconf.app_ppm_conf.max_watt_ramp_factor = ui->appconfPpmMaxWattFactorBox->value();
 
     // ADC
     if (ui->appconfAdcDisabledButton->isChecked()) {
@@ -2535,6 +2970,10 @@ void MainWindow::on_appconfWriteButton_clicked()
         appconf.app_chuk_conf.ctrl_type = CHUK_CTRL_TYPE_CURRENT;
     } else if (ui->appconfChukCurrentNorevButton->isChecked()) {
         appconf.app_chuk_conf.ctrl_type = CHUK_CTRL_TYPE_CURRENT_NOREV;
+    } else if (ui->appconfChukWattButton->isChecked()) {
+        appconf.app_chuk_conf.ctrl_type = CHUK_CTRL_TYPE_WATT;
+    } else if (ui->appconfChukWattNorevButton->isChecked()) {
+        appconf.app_chuk_conf.ctrl_type = CHUK_CTRL_TYPE_WATT_NOREV;
     }
 
     appconf.app_chuk_conf.hyst = ui->appconfChukHystBox->value();
@@ -2546,6 +2985,11 @@ void MainWindow::on_appconfWriteButton_clicked()
     appconf.app_chuk_conf.multi_esc = ui->appconfChukMultiGroup->isChecked();
     appconf.app_chuk_conf.tc = ui->appconfChukTcBox->isChecked();
     appconf.app_chuk_conf.tc_max_diff = ui->appconfChukTcErpmBox->value();
+    appconf.app_chuk_conf.tc_offset = ui->appconfChukTcOffsetBox->value();
+    
+    appconf.app_chuk_conf.max_watt_enabled = ui->appconfChukDefineMaxWattBox->isChecked();
+    appconf.app_chuk_conf.max_watt = ui->appconfChukMaxWattBox->value();
+    appconf.app_chuk_conf.max_watt_ramp_factor = ui->appconfChukMaxWattFactorBox->value();
 
     // NRF
     if (ui->appconfNrfSpeed250kButton->isChecked()) {
@@ -2579,6 +3023,22 @@ void MainWindow::on_appconfWriteButton_clicked()
     appconf.app_nrf_conf.address[0] = ui->appconfNrfAddrB0Box->value();
     appconf.app_nrf_conf.address[1] = ui->appconfNrfAddrB1Box->value();
     appconf.app_nrf_conf.address[2] = ui->appconfNrfAddrB2Box->value();
+    
+    appconf.app_throttle_conf.adjustable_throttle_enabled = ui->appconfAdjustableThrottle->isChecked();
+    appconf.app_throttle_conf.y1_throttle = ui->y1Throttle->value() / 100.0;
+    appconf.app_throttle_conf.y2_throttle = ui->y2Throttle->value() / 100.0;
+    appconf.app_throttle_conf.y3_throttle = ui->y3Throttle->value() / 100.0;
+    appconf.app_throttle_conf.x1_throttle = ui->x1Throttle->value() / 100.0;
+    appconf.app_throttle_conf.x2_throttle = ui->x2Throttle->value() / 100.0;
+    appconf.app_throttle_conf.x3_throttle = ui->x3Throttle->value() / 100.0;
+    appconf.app_throttle_conf.bezier_reduce_factor = ui->bezierReduceFactorBox->value();
+    appconf.app_throttle_conf.y1_neg_throttle = -ui->y1NegThrottle->value() / 100.0;
+    appconf.app_throttle_conf.y2_neg_throttle = -ui->y2NegThrottle->value() / 100.0;
+    appconf.app_throttle_conf.y3_neg_throttle = -ui->y3NegThrottle->value() / 100.0;
+    appconf.app_throttle_conf.x1_neg_throttle = -ui->x1NegThrottle->value() / 100.0;
+    appconf.app_throttle_conf.x2_neg_throttle = -ui->x2NegThrottle->value() / 100.0;
+    appconf.app_throttle_conf.x3_neg_throttle = -ui->x3NegThrottle->value() / 100.0;
+    appconf.app_throttle_conf.bezier_neg_reduce_factor = ui->bezierNegReduceFactorBox->value();
 
     mPacketInterface->setAppConf(appconf);
 }

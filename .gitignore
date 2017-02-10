@@ -4,6 +4,7 @@ ui_*
 Makefile
 BLDC_Tool.app
 BLDC_Tool
+BLDC-Tool_*
 
 /core/
 /libraries/

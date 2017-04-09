@@ -14,6 +14,8 @@ Quick build instructions for Ubuntu:
 
 6. Start BLDC-tool from inside of the built repo `./BLDC_Tool`
 
+7. Include framework: macdeployqt BLDC-Tool_2.54.app
+
 Windows and OS X builds available :
 
 https://bldc-tool.support
